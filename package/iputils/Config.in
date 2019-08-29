@@ -7,3 +7,71 @@ config BR2_PACKAGE_IPUTILS
 	  etc.
 
 	  https://github.com/iputils/iputils
+
+if BR2_PACKAGE_IPUTILS
+
+config BR2_PACKAGE_IPUTILS_ARPING
+	bool "arping"
+	default y
+	help
+	  Installs arping.
+
+config BR2_PACKAGE_IPUTILS_CLOCKDIFF
+	bool "clockdiff"
+	default y
+	help
+	  Installs clockdiff.
+
+config BR2_PACKAGE_IPUTILS_PING
+	bool "ping"
+	default y
+	help
+	  Installs ping.
+
+config BR2_PACKAGE_IPUTILS_RARPD
+	bool "rarpd"
+	help
+	  Installs rarpd.
+
+config BR2_PACKAGE_IPUTILS_RDISC
+	bool "rdisc"
+	default y
+	help
+	  Installs rdisc.
+
+config BR2_PACKAGE_IPUTILS_RDISC_SERVER
+	bool "rdisc (server code)"
+	depends on BR2_PACKAGE_IPUTILS_RDISC
+	default y
+	help
+	  Builds rdisc with server code.
+
+config BR2_PACKAGE_IPUTILS_TFTPD
+	bool "tftpd"
+	help
+	  Installs tftpd.
+
+config BR2_PACKAGE_IPUTILS_TRACEPATH
+	bool "tracepath"
+	default y
+	help
+	  Installs tracepath.
+
+config BR2_PACKAGE_IPUTILS_TRACEROUTE6
+	bool "traceroute6"
+	default y
+	help
+	  Installs traceroute6.
+
+config BR2_PACKAGE_IPUTILS_NINFOD
+	bool "ninfod"
+	depends on BR2_TOOLCHAIN_HAS_THREADS # ninfod requires <pthread.h>
+	depends on BR2_PACKAGE_NETTLE || BR2_PACKAGE_LIBGCRYPT || BR2_PACKAGE_OPENSSL || BR2_PACKAGE_LINUX_HEADERS
+	default y
+	help
+	  Installs ninfod.
+
+comment "ninfod needs nettle, libgcrypt, openssl or Linux headers and a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS || (!BR2_PACKAGE_NETTLE && !BR2_PACKAGE_LIBGCRYPT && !BR2_PACKAGE_OPENSSL && !BR2_PACKAGE_LINUX_HEADERS)
+
+endif
